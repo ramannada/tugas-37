@@ -3,8 +3,8 @@ USE perpustakaan_labib;
 CREATE TABLE buku (id INT(11) PRIMARY KEY AUTO_INCREMENT, id_penerbit INT(11),
 kode_buku VARCHAR(255) UNIQUE NOT NULL, judul VARCHAR(255), harga INT(11),
 stok INT(11), in_stok INT(11));
-CREATE TABLE kategori (id INT(11) PRIMARY KEY AUTO_INCREMENT, kode_kategori
-VARCHAR(255) UNIQUE NOT NULL, nama VARCHAR(255) NOT NULL);
+CREATE TABLE kategori (id INT(11) PRIMARY KEY AUTO_INCREMENT, 
+kode_kategori VARCHAR(255) UNIQUE NOT NULL, nama VARCHAR(255) NOT NULL);
 CREATE TABLE kategori_buku (id_buku INT(11),id_kategori INT(11));
 CREATE TABLE pengarang_buku (id_buku INT(11),id_pengarang INT(11));
 CREATE TABLE pengarang (id INT(11) PRIMARY KEY AUTO_INCREMENT,
@@ -14,12 +14,12 @@ VARCHAR(255) UNIQUE NOT NULL, nama VARCHAR(255) NOT NULL);
 CREATE TABLE pustakawan (id INT(11) PRIMARY KEY AUTO_INCREMENT,
 kode_pustakawan VARCHAR(255) UNIQUE NOT NULL, no_ktp VARCHAR(255)
 UNIQUE NOT NULL, nama VARCHAR(255) NOT NULL, jenis_kelamin VARCHAR(255),
-tanggal_lahir DATE, telp VARCHAR(255) NOT NULL, alamat TEXT, id_kota INT(11),
+tanggal_lahir DATE, telp VARCHAR(255) NOT NULL, alamat TEXT,
  id_kecamatan INT(11), id_kabupaten INT(11));
  CREATE TABLE anggota (id INT(11) PRIMARY KEY AUTO_INCREMENT,
  kode_anggota VARCHAR(255) UNIQUE NOT NULL, nama VARCHAR(255) NOT NULL,
  jenis_kelamin VARCHAR(255) NOT NULL, tanggal_lahir DATE, telp VARCHAR(255) NOT NULL,
- alamat TEXT NOT NULL, id_kota INT(11), id_kecamatan INT(11), id_kabupaten INT(11),
+ alamat TEXT NOT NULL, id_kecamatan INT(11), id_kabupaten INT(11),
  tanggal_daftar TIMESTAMP);
  CREATE TABLE peminjaman (id INT(11) PRIMARY KEY AUTO_INCREMENT,
  kode_peminjaman VARCHAR(255) UNIQUE NOT NULL, id_anggota INT(11) NOT NULL,
@@ -97,18 +97,18 @@ alter table peminjaman_buku drop column tanggal_kembali;
 alter table peminjaman add tgl_peminjaman date not null;
 alter table peminjaman add tgl_pengembalian date not null;
 insert into peminjaman (kode_peminjaman,id_anggota,id_pustakawan, tgl_peminjaman,
-    tgl_pengembalian) values ("PJM2017020301",9,1,"2017-01-29","2017-02-02"),
-    ("PJM2017020302",8,1,"2017-01-31","2017-02-4"),
-    ("PJM2017020303",6,1,"2017-01-31","2017-02-4"),
-    ("PJM2017020304",10,1,"2017-01-31","2017-02-4"),
-    ("PJM2017020305",7,1,"2017-01-31","2017-02-4");
+    tgl_pengembalian) values ("PJM2017020301",4,1,"2017-01-29","2017-02-02"),
+    ("PJM2017020302",3,1,"2017-01-31","2017-02-4"),
+    ("PJM2017020303",1,1,"2017-01-31","2017-02-4"),
+    ("PJM2017020304",5,1,"2017-01-31","2017-02-4"),
+    ("PJM2017020305",2,1,"2017-01-31","2017-02-4");
 update buku set in_stok = 1 where id = 1;
 update buku set in_stok = 1 where id = 4;
 update buku set in_stok = 0 where id = 3;
 update buku set in_stok = 0 where id = 6;
 insert into peminjaman_buku (id_peminjaman,id_buku) values (1,3),(1,1),(2,4),(3,6),(4,1),(5,4);
 insert into pengembalian (kode_kembali, id_peminjaman, id_pustakawan, keterangan) values
-    ("KBL2017020301",6,1,"Terlambat 1 hari");
+    ("KBL2017020301",1,1,"Terlambat 1 hari");
 insert into pengembalian (kode_kembali, id_peminjaman, id_pustakawan) values
     ("KBL2017020302",2,1),("KBL2017020305",5,1);
 insert into pengembalian_buku (id_pengembalian, id_buku) values (1,3),(1,1),(2,4),(3,4);
@@ -143,5 +143,3 @@ alter table pengembalian add foreign key (id_pustakawan) references pustakawan(i
 alter table pengembalian_buku add foreign key (id_pengembalian) references pengembalian(id);
 alter table pengembalian_buku add foreign key (id_buku) references buku(id);
 
-alter table anggota drop column id_kota;
-alter table pustakawan drop column id_kota;
