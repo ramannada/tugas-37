@@ -1,5 +1,5 @@
-CREATE DATABASE perpustakaan;
-USE perpustakaan;
+CREATE DATABASE perpustakaan_labib;
+USE perpustakaan_labib;
 CREATE TABLE buku (id INT(11) PRIMARY KEY AUTO_INCREMENT, id_penerbit INT(11),
 kode_buku VARCHAR(255) UNIQUE NOT NULL, judul VARCHAR(255), harga INT(11),
 stok INT(11), in_stok INT(11));
